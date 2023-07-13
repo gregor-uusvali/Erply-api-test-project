@@ -15,12 +15,10 @@ import (
 
 var Repo *Repository
 
-// APIHandler handles the API endpoints
 type Repository struct {
 	DB repository.DatabaseRepo
 }
 
-// NewAPIHandler creates a new APIHandler instance
 func NewRepo(db *driver.DB) *Repository {
 	return &Repository{
 		DB: dbrepo.NewSQLiteRepo(db.SQL),

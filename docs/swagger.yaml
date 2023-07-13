@@ -1,0 +1,290 @@
+basePath: /
+definitions:
+  models.Customer:
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: integer
+      lastName:
+        type: string
+    type: object
+  models.CustomerResponse:
+    properties:
+      records:
+        items:
+          $ref: '#/definitions/models.Customer'
+        type: array
+      status:
+        $ref: '#/definitions/models.Status'
+    type: object
+  models.GetSessionKeyInfoResponse:
+    properties:
+      records:
+        items:
+          $ref: '#/definitions/models.SessionKeyRecord'
+        type: array
+      status:
+        $ref: '#/definitions/models.Status'
+    type: object
+  models.GetSessionKeyUserResponse:
+    properties:
+      records:
+        items:
+          $ref: '#/definitions/models.SessionUserRecord'
+        type: array
+      status:
+        $ref: '#/definitions/models.Status'
+    type: object
+  models.Record:
+    properties:
+      employeeID:
+        type: string
+      employeeName:
+        type: string
+      groupID:
+        type: string
+      identityToken:
+        type: string
+      sessionKey:
+        type: string
+      token:
+        type: string
+      userID:
+        type: string
+      userName:
+        type: string
+    type: object
+  models.Response:
+    properties:
+      records:
+        items:
+          $ref: '#/definitions/models.Record'
+        type: array
+      status:
+        $ref: '#/definitions/models.Status'
+    type: object
+  models.SaveCustomerRecord:
+    properties:
+      alreadyExists:
+        type: boolean
+      clientID:
+        type: integer
+      customerID:
+        type: integer
+    type: object
+  models.SaveCustomerResponse:
+    properties:
+      records:
+        items:
+          $ref: '#/definitions/models.SaveCustomerRecord'
+        type: array
+      status:
+        $ref: '#/definitions/models.Status'
+    type: object
+  models.SessionKeyRecord:
+    properties:
+      creationUnixTime:
+        type: string
+      expireUnixTime:
+        type: string
+    type: object
+  models.SessionUserRecord:
+    properties:
+      userName:
+        type: string
+    type: object
+  models.Status:
+    properties:
+      errorCode:
+        type: integer
+      generationTime:
+        type: number
+      request:
+        type: string
+      requestUnixTime:
+        type: integer
+      responseStatus:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API endpoints for interacting with Erply API.
+  title: Erply API Test Project
+  version: "1.0"
+paths:
+  /deleteCustomer:
+    delete:
+      description: Delete a customer.
+      parameters:
+      - description: Client code
+        in: query
+        name: clientCode
+        required: true
+        type: string
+      - description: Session key
+        in: query
+        name: sessionKey
+        required: true
+        type: string
+      - description: Customer ID
+        in: query
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: DELETE request sent successfully
+          schema:
+            type: string
+      summary: Delete customer
+      tags:
+      - Customer
+  /getCustomers:
+    post:
+      description: Get a list of customers.
+      parameters:
+      - description: Client code
+        in: query
+        name: clientCode
+        required: true
+        type: string
+      - description: Session key
+        in: query
+        name: sessionKey
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CustomerResponse'
+      security:
+      - SessionKeyAuth: []
+      summary: Get customers
+      tags:
+      - Customer
+  /getSessionKeyInfo:
+    post:
+      description: Get information about the session key.
+      parameters:
+      - description: Client code
+        in: query
+        name: clientCode
+        required: true
+        type: string
+      - description: Session key
+        in: query
+        name: sessionKey
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetSessionKeyInfoResponse'
+      security:
+      - SessionKeyAuth: []
+      summary: Get session key info
+      tags:
+      - Authentication
+  /getSessionKeyUser:
+    post:
+      description: Get the user associated with the session key.
+      parameters:
+      - description: Client code
+        in: query
+        name: clientCode
+        required: true
+        type: string
+      - description: Session key
+        in: query
+        name: sessionKey
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetSessionKeyUserResponse'
+      summary: Get session key user
+      tags:
+      - Authentication
+  /saveCustomer:
+    post:
+      description: Save a customer.
+      parameters:
+      - description: Client code
+        in: query
+        name: clientCode
+        required: true
+        type: string
+      - description: Session key
+        in: query
+        name: sessionKey
+        required: true
+        type: string
+      - description: First name
+        in: query
+        name: firstName
+        required: true
+        type: string
+      - description: Last name
+        in: query
+        name: lastName
+        required: true
+        type: string
+      - description: Email
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SaveCustomerResponse'
+      summary: Save customer
+      tags:
+      - Customer
+  /verifyUser:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: Verify user credentials and retrieve a session key.
+      parameters:
+      - description: Client code
+        in: formData
+        name: clientCode
+        required: true
+        type: string
+      - description: Username
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: Password
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Verify user
+      tags:
+      - Authentication
+swagger: "2.0"

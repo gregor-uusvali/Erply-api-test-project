@@ -66,6 +66,16 @@ func makeRequest(clientCode, requestType, sessionKey string, data url.Values, re
 	return nil
 }
 
+// @Summary Verify user
+// @Description Verify user credentials and retrieve a session key.
+// @Tags Authentication
+// @Accept x-www-form-urlencoded
+// @Param clientCode formData string true "Client code"
+// @Param username formData string true "Username"
+// @Param password formData string true "Password"
+// @Produce json
+// @Success 200 {object} models.Response
+// @Router /verifyUser [post]
 func VerifyUser(clientCode, username, password string) (*models.Response, error) {
 	data := url.Values{
 		"clientCode":      {clientCode},
@@ -83,6 +93,15 @@ func VerifyUser(clientCode, username, password string) (*models.Response, error)
 	return response, nil
 }
 
+// @Summary Get session key info
+// @Description Get information about the session key.
+// @Tags Authentication
+// @Param clientCode query string true "Client code"
+// @Param sessionKey query string true "Session key"
+// @Security SessionKeyAuth
+// @Produce json
+// @Success 200 {object} models.GetSessionKeyInfoResponse
+// @Router /getSessionKeyInfo [post]
 func GetSessionKeyInfo(clientCode, sessionKey string) (*models.GetSessionKeyInfoResponse, error) {
 	data := url.Values{
 		"clientCode":      {clientCode},
@@ -99,6 +118,13 @@ func GetSessionKeyInfo(clientCode, sessionKey string) (*models.GetSessionKeyInfo
 	return response, nil
 }
 
+// @Summary Get session key user
+// @Description Get the user associated with the session key.
+// @Tags Authentication
+// @Param clientCode query string true "Client code"
+// @Param sessionKey query string true "Session key"
+// @Success 200 {object} models.GetSessionKeyUserResponse
+// @Router /getSessionKeyUser [post]
 func GetSessionKeyUser(clientCode, sessionKey string) (*models.GetSessionKeyUserResponse, error) {
 	data := url.Values{
 		"clientCode":      {clientCode},
@@ -115,6 +141,17 @@ func GetSessionKeyUser(clientCode, sessionKey string) (*models.GetSessionKeyUser
 	return response, nil
 }
 
+// @Summary Save customer
+// @Description Save a customer.
+// @Tags Customer
+// @Param clientCode query string true "Client code"
+// @Param sessionKey query string true "Session key"
+// @Param firstName query string true "First name"
+// @Param lastName query string true "Last name"
+// @Param email query string true "Email"
+// @Produce json
+// @Success 200 {object} models.SaveCustomerResponse
+// @Router /saveCustomer [post]
 func SaveCustumer(clientCode, sessionKey, firstName, lastName, email string) (*models.SaveCustomerResponse, error) {
 	data := url.Values{
 		"clientCode":      {clientCode},
@@ -134,6 +171,15 @@ func SaveCustumer(clientCode, sessionKey, firstName, lastName, email string) (*m
 	return response, nil
 }
 
+// @Summary Get customers
+// @Description Get a list of customers.
+// @Tags Customer
+// @Param clientCode query string true "Client code"
+// @Param sessionKey query string true "Session key"
+// @Security SessionKeyAuth
+// @Produce json
+// @Success 200 {object} models.CustomerResponse
+// @Router /getCustomers [post]
 func GetCustumers(clientCode, sessionKey string) (*models.CustomerResponse, error) {
 	data := url.Values{
 		"clientCode":      {clientCode},
@@ -150,6 +196,14 @@ func GetCustumers(clientCode, sessionKey string) (*models.CustomerResponse, erro
 	return response, nil
 }
 
+// @Summary Delete customer
+// @Description Delete a customer.
+// @Tags Customer
+// @Param clientCode query string true "Client code"
+// @Param sessionKey query string true "Session key"
+// @Param id query string true "Customer ID"
+// @Success 200 {string} string "DELETE request sent successfully"
+// @Router /deleteCustomer [delete]
 func DeleteCustomer(clientCode, sessionKey, id string) error {
 	url := fmt.Sprintf("https://api-crm-eu.erply.com/v1/customers/individuals/%s", id)
 

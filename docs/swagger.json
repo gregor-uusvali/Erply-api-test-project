@@ -1,0 +1,442 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API endpoints for interacting with Erply API.",
+        "title": "Erply API Test Project",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/deleteCustomer": {
+            "delete": {
+                "description": "Delete a customer.",
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Delete customer",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Client code",
+                        "name": "clientCode",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Session key",
+                        "name": "sessionKey",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Customer ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "DELETE request sent successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getCustomers": {
+            "post": {
+                "security": [
+                    {
+                        "SessionKeyAuth": []
+                    }
+                ],
+                "description": "Get a list of customers.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get customers",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Client code",
+                        "name": "clientCode",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Session key",
+                        "name": "sessionKey",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CustomerResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/getSessionKeyInfo": {
+            "post": {
+                "security": [
+                    {
+                        "SessionKeyAuth": []
+                    }
+                ],
+                "description": "Get information about the session key.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Get session key info",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Client code",
+                        "name": "clientCode",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Session key",
+                        "name": "sessionKey",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetSessionKeyInfoResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/getSessionKeyUser": {
+            "post": {
+                "description": "Get the user associated with the session key.",
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Get session key user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Client code",
+                        "name": "clientCode",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Session key",
+                        "name": "sessionKey",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GetSessionKeyUserResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/saveCustomer": {
+            "post": {
+                "description": "Save a customer.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Save customer",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Client code",
+                        "name": "clientCode",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Session key",
+                        "name": "sessionKey",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "First name",
+                        "name": "firstName",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Last name",
+                        "name": "lastName",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Email",
+                        "name": "email",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.SaveCustomerResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/verifyUser": {
+            "post": {
+                "description": "Verify user credentials and retrieve a session key.",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Verify user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Client code",
+                        "name": "clientCode",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Username",
+                        "name": "username",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Password",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Customer": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "lastName": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CustomerResponse": {
+            "type": "object",
+            "properties": {
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Customer"
+                    }
+                },
+                "status": {
+                    "$ref": "#/definitions/models.Status"
+                }
+            }
+        },
+        "models.GetSessionKeyInfoResponse": {
+            "type": "object",
+            "properties": {
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.SessionKeyRecord"
+                    }
+                },
+                "status": {
+                    "$ref": "#/definitions/models.Status"
+                }
+            }
+        },
+        "models.GetSessionKeyUserResponse": {
+            "type": "object",
+            "properties": {
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.SessionUserRecord"
+                    }
+                },
+                "status": {
+                    "$ref": "#/definitions/models.Status"
+                }
+            }
+        },
+        "models.Record": {
+            "type": "object",
+            "properties": {
+                "employeeID": {
+                    "type": "string"
+                },
+                "employeeName": {
+                    "type": "string"
+                },
+                "groupID": {
+                    "type": "string"
+                },
+                "identityToken": {
+                    "type": "string"
+                },
+                "sessionKey": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "userID": {
+                    "type": "string"
+                },
+                "userName": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Response": {
+            "type": "object",
+            "properties": {
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Record"
+                    }
+                },
+                "status": {
+                    "$ref": "#/definitions/models.Status"
+                }
+            }
+        },
+        "models.SaveCustomerRecord": {
+            "type": "object",
+            "properties": {
+                "alreadyExists": {
+                    "type": "boolean"
+                },
+                "clientID": {
+                    "type": "integer"
+                },
+                "customerID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.SaveCustomerResponse": {
+            "type": "object",
+            "properties": {
+                "records": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.SaveCustomerRecord"
+                    }
+                },
+                "status": {
+                    "$ref": "#/definitions/models.Status"
+                }
+            }
+        },
+        "models.SessionKeyRecord": {
+            "type": "object",
+            "properties": {
+                "creationUnixTime": {
+                    "type": "string"
+                },
+                "expireUnixTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SessionUserRecord": {
+            "type": "object",
+            "properties": {
+                "userName": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Status": {
+            "type": "object",
+            "properties": {
+                "errorCode": {
+                    "type": "integer"
+                },
+                "generationTime": {
+                    "type": "number"
+                },
+                "request": {
+                    "type": "string"
+                },
+                "requestUnixTime": {
+                    "type": "integer"
+                },
+                "responseStatus": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

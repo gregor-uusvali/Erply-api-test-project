@@ -14,6 +14,11 @@ const (
 	dsn        = "./database/database.db?_foreign_keys=on"
 )
 
+// @title Erply API Test Project
+// @version 1.0
+// @description API endpoints for interacting with Erply API.
+// @host localhost:8080
+// @BasePath /
 func main() {
 	db, err := run()
 	if err != nil {

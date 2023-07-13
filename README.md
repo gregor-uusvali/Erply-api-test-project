@@ -13,18 +13,18 @@ To run this project, make sure you have the following:
 ## Installation
 
 1. Clone the repository:
-   ```git clone https://github.com/gregor-uusvali/Erply-api-test-project```
-   ```cd Erply-api-test-project```
+   `git clone https://github.com/gregor-uusvali/Erply-api-test-project`
+   `cd Erply-api-test-project`
 
 ## Usage
+
 Run the application:
 
-bash
 Copy code
-```go run .```
+`go run .`
 or
 Docker
-```./run_docker.sh```
+`./run_docker.sh`
 The application will start and listen on http://localhost:8080.
 
 Access the API documentation:
@@ -41,3 +41,11 @@ The project structure is organized as follows:
 - api: Handles the communication with the Erply API.
 - repository: Provides the database repository interfaces.
 - repository/dbrepo: Implements the database repository using SQLite.
+
+## Tests
+
+Unit tests for database operations are included in `/repository/dbrepo/customerrepo_test.go`
+
+### Author
+
+[Gregor Uusväli](https://github.com/gregor-uusvali)

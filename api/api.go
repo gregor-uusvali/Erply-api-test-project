@@ -45,11 +45,11 @@ func makeRequest(clientCode, requestType, sessionKey string, data url.Values, re
 		}
 	case *models.GetSessionKeyInfoResponse:
 		if resp.Status.ErrorCode != 0 {
-			return fmt.Errorf("failed to authenticate")
+			return fmt.Errorf("failed to get session key info")
 		}
 	case *models.GetSessionKeyUserResponse:
 		if resp.Status.ErrorCode != 0 {
-			return fmt.Errorf("failed to authenticate")
+			return fmt.Errorf("failed to get session key user")
 		}
 	case *models.SaveCustomerResponse:
 		if resp.Status.ErrorCode != 0 {

@@ -38,6 +38,7 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/signin", http.StatusSeeOther)
 		return
 	}
+	// Get customers from database
 	// customers, err := m.DB.GetCustomers()
 	// if err != nil {
 	// 	helpers.ServerError(w, err)

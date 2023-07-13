@@ -20,11 +20,15 @@ To run this project, make sure you have the following:
 
 Run the application:
 
-Copy code
-`go run .`
-or
+Run in terminal
+`go run .`,
+
+Run the executable
+`./Erply-api-test-project `
+
 Docker
 `./run_docker.sh`
+
 The application will start and listen on http://localhost:8080.
 
 Access the API documentation:

@@ -39,7 +39,7 @@ Unfortunately, I couldn't get the Swagger UI to display my API documentation, bu
 
 ## Structure
 
-The project structure is organized as follows:
+The project structure:
 
 - main.go: The entry point of the application that sets up the server and routes.
 - driver: Contains the database connection and initialization logic.

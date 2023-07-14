@@ -1,6 +1,6 @@
 # Erply API Test Project
 
-This project is a simple Golang-based Erply API endpoint/middleware that allows reading and writing customer data from the Erply API.
+This project is a simple Golang-based Erply API endpoint/middleware that allows reading and writing customer data from the Erply API. Users can log in with their Erply credentials (clientCode, username, password) to add new customers, view the customers table, and delete customers.
 
 ## Requirements
 
@@ -34,6 +34,8 @@ The application will start and listen on http://localhost:8080.
 Access the API documentation:
 
 Open your web browser and navigate to http://localhost:8080/swagger/.
+
+Unfortunately, I couldn't get the Swagger UI to display my API documentation, but the functions have been annotated.
 
 ## Structure
 

@@ -35,7 +35,7 @@ Access the API documentation:
 
 Open your web browser and navigate to http://localhost:8080/swagger/.
 
-Unfortunately, I couldn't get the Swagger UI to display my API documentation, but the functions have been annotated.
+Unfortunately, I ran out of time and couldn't get the Swagger UI to display my API documentation, but the functions have been annotated.
 
 ## Structure
 
